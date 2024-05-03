@@ -23,8 +23,8 @@ export default function Home() {
           <Image
             src='/assets/images/hero.png'
             alt='hero'
-            width={1000}
-            height={1000}
+            width={1500}
+            height={1500}
             className='max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]'
           />
         </div>

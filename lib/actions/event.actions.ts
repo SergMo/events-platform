@@ -33,3 +33,10 @@ export const createEvent = async ({
     handleError(error);
   }
 };
+
+export const getEventById = async (eventId: string) => {
+  try {
+  } catch (error) {
+    handleError(error);
+  }
+};
