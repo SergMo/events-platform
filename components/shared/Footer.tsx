@@ -7,7 +7,7 @@ const Footer = () => {
       <div className='flex flex-center wrapper flex-between flex-col gap-4 p-5 text-center sm:flex-row'>
         <Link href='/'>
           <Image
-            src='/assets/images/logo.svg'
+            src='/assets/images/logo1.svg'
             alt='logo'
             width={128}
             height={38}
