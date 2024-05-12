@@ -1,7 +1,7 @@
 'use server';
 
 import { handleError } from '@/lib/utils';
-import { CreateEventParams } from '@/types';
+import { CreateEventParams, GetAllEventsParams } from '@/types';
 import { revalidatePath } from 'next/cache';
 import { connectToDatabase } from '../database';
 import Category from '../database/models/category.model';
@@ -59,6 +59,36 @@ export const getEventById = async (eventId: string) => {
       throw new Error('Event not found');
     }
     return JSON.parse(JSON.stringify(event));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// GET ALL EVENTS
+
+export const getAllEvents = async ({
+  query,
+  limit = 6,
+  page,
+  category,
+}: GetAllEventsParams) => {
+  try {
+    await connectToDatabase();
+
+    const conditions = {};
+
+    const eventsQuery = Event.find(conditions)
+      .sort({ createdAt: 'desc' })
+      .skip(0)
+      .limit(limit);
+
+    const events = await populateEvent(eventsQuery);
+    const eventsCount = await Event.countDocuments(conditions);
+
+    return {
+      data: JSON.parse(JSON.stringify(events)),
+      totalPages: Math.ceil(eventsCount / limit),
+    };
   } catch (error) {
     handleError(error);
   }
